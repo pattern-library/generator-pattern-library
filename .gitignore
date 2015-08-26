@@ -1,0 +1,9 @@
+# OS X files
+.DS_Store
+
+# npm
+node_modules
+npm-debug.log
+
+# Ignore project files created by phpstorm
+.idea
