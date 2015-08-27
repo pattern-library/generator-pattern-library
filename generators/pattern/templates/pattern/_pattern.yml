@@ -1,0 +1,13 @@
+name: <%= patternName %>
+description: PATTERN DESCRIPTION GOES HERE
+<% if (patternType === 'html') { %>html: <%= patternNameKebab %>.html<% } %>
+<% if (patternType === 'twig') { %>twig: <%= patternNameKebab %>.twig<% } %>
+<% if (filesToInclude.indexOf('sass') !== -1) { %>sass: <%= patternNameKebab %>.scss<% } %>
+<% if (filesToInclude.indexOf('javascript') !== -1) { %>script: <%= patternNameKebab %>.js<% } %>
+category: <%= category %>
+subcategory: <%= subcategoryKebab %>
+data:
+  <%= patternNameKebab %>:
+    class: <%= patternNameKebab %>
+    content: "This is example content"
+
