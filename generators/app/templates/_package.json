@@ -11,6 +11,7 @@
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.0.4",
     "gulp-task-listing": "^1.0.1",
+    "gulp-watch": "^4.3.5",
     "pattern-importer": "^0.0.12",
     "pattern-library-utilities": "^0.0.7",
     "run-sequence": "^1.1.2"

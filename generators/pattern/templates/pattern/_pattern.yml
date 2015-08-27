@@ -7,7 +7,7 @@ description: PATTERN DESCRIPTION GOES HERE
 category: <%= category %>
 subcategory: <%= subcategoryKebab %>
 data:
-  <%= patternNameKebab %>:
+  <%= patternNameCamel %>:
     class: <%= patternNameKebab %>
     content: "This is example content"
 

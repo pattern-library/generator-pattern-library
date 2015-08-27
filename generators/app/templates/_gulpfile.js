@@ -15,7 +15,8 @@ var browserSync = require('browser-sync').create(),
   replace = require('gulp-replace'),
   runSequence = require('run-sequence'),
   sass = require('gulp-sass'),
-  taskListing = require('gulp-task-listing');
+  taskListing = require('gulp-task-listing'),
+  watch = require('gulp-watch');
 
 /******************************************
 CONFIGURATION
@@ -475,15 +476,16 @@ gulp.task('replace-url-local', function(){
 
 /**
 Import Single Pattern
+TODO: fix bug on SINGLE pattern import on new patterns
 **/
 function importSinglePattern (file) {
 
   // get the directory of the local pattern
-  var patternDir = path.dirname(file);
-  // change the source to THIS pattern's pattern.yml file
-  configuration.gulpTasks.patternImporter.localPatterns.src = [path.join(patternDir,configuration.dataFileName)];
-  // temporarily set up our patterns-import-local gulp task to just import THIS pattern
-  patternImporter.gulpImportPatterns(gulp,configuration.gulpTasks.patternImporter.localPatterns);
+  // var patternDir = path.dirname(file);
+  // // change the source to THIS pattern's pattern.yml file
+  // configuration.gulpTasks.patternImporter.localPatterns.src = [path.join(patternDir,configuration.dataFileName)];
+  // // temporarily set up our patterns-import-local gulp task to just import THIS pattern
+  // patternImporter.gulpImportPatterns(gulp,configuration.gulpTasks.patternImporter.localPatterns);
   // go through the full import process
   runSequence(
     'patterns-import-local',
@@ -537,7 +539,7 @@ gulp.task('watch', function() {
     local Pattern Library watch
     TODO: check for deletion and create pattern removal process
   */
-  var localPatternsWatcher = gulp.watch('./patterns/**/*');
+  var localPatternsWatcher = watch('./patterns/**/*');
   localPatternsWatcher.on('change', function(event) {
     importSinglePattern(event.path);
   });
@@ -546,7 +548,7 @@ gulp.task('watch', function() {
     Site Files watch tasks
   */
   // Site Files CSS
-  gulp.watch(configuration.fileTypes.css.sitefilesSrc, function(){
+  watch(configuration.fileTypes.css.sitefilesSrc, function(){
     runSequence(
       'site-files-import-css',
       'patternlab-build-public',
@@ -557,7 +559,7 @@ gulp.task('watch', function() {
     );
   });
   // Site Files Fonts
-  gulp.watch(configuration.fileTypes.fonts.sitefilesSrc, function(){
+  watch(configuration.fileTypes.fonts.sitefilesSrc, function(){
     runSequence(
       'site-files-import-fonts',
       'patternlab-build-public',
@@ -568,7 +570,7 @@ gulp.task('watch', function() {
     );
   });
   // Site Files Images
-  gulp.watch(configuration.fileTypes.images.sitefilesSrc, function(){
+  watch(configuration.fileTypes.images.sitefilesSrc, function(){
     runSequence(
       'site-files-import-images',
       'patternlab-build-public',
@@ -579,7 +581,7 @@ gulp.task('watch', function() {
     );
   });
   // Site Files JS
-  gulp.watch(configuration.fileTypes.js.sitefilesSrc, function(){
+  watch(configuration.fileTypes.js.sitefilesSrc, function(){
     runSequence(
       'glob-inject-js-sitefiles',
       'patternlab-build-public',
@@ -590,7 +592,7 @@ gulp.task('watch', function() {
     );
   });
   // Site Files SASS
-  gulp.watch(configuration.fileTypes.sass.sitefilesSrc, function(){
+  watch(configuration.fileTypes.sass.sitefilesSrc, function(){
     runSequence(
       'glob-inject-sass-local',
       'sass',
@@ -602,12 +604,12 @@ gulp.task('watch', function() {
     );
   });
 
-  //gulp.watch('./patterns/**/*.js', ['patterns-import-local', 'glob-inject-scss-local', 'sass', 'patternlab-build-public', browserSync.reload]);
+  //watch('./patterns/**/*.js', ['patterns-import-local', 'glob-inject-scss-local', 'sass', 'patternlab-build-public', browserSync.reload]);
 
   // set a watch on each template file
   if(configuration.templates){
     configuration.templates.forEach(function (template) {
-      gulp.watch(template.src, ['tpl-copy-' + template.name, 'patternlab-build-public', browserSync.reload]);
+      watch(template.src, ['tpl-copy-' + template.name, 'patternlab-build-public', browserSync.reload]);
     });
   }
 });
