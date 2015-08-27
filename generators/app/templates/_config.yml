@@ -1,5 +1,8 @@
 dataFileName: 'pattern.yml'
 prototyperDir: './patternlab'
+patternlab:
+  dest: './patternlab'
+  version: '0.6.6'
 sitefilesDir: './site-files'
 githubrepo: <%= reponame %>
 npmPatternRepos:

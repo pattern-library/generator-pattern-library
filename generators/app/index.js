@@ -53,7 +53,7 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
 
-    copiedFiles: function () {
+    copyFiles: function () {
 
       // gulpfile
       this.fs.copy(
@@ -120,7 +120,7 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('site-files/js/.gitkeep')
       );
     },
-    transformedFiles: function () {
+    transformFiles: function () {
 
       // configuration
       this.fs.copyTpl(

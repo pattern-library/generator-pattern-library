@@ -4,6 +4,7 @@ var browserSync = require('browser-sync').create(),
   changed = require('gulp-changed'),
   cp = require('child_process'),
   del = require('del'),
+  exec = require('child_process').exec,
   fs = require('fs'),
   gulp = require('gulp'),
   path = require('path'),
@@ -293,6 +294,40 @@ gulp.task('patternlab-clean', function (done) {
 });
 
 /**
+ * Patternlab-install task - installs Patternlab via composer if ./patternlab folder not exists.
+ *
+ * @requires fs
+ * @requires child_process.exec
+ */
+gulp.task('patternlab-install', function (done) {
+
+  fs.exists(configuration.patternlab.dest, function (exists) {
+    if (!exists) {
+
+      // composer create-project pattern-lab/edition-twig-standard has promts,
+      // passing answers to command in advance to prevent installation blocking.
+      var command = "(echo '1'\
+      sleep 1\
+      echo 'r'\
+      sleep 1 ) | composer create-project pattern-lab/edition-twig-standard " + configuration.patternlab.dest + ' ' + configuration.patternlab.version;
+
+      console.log('Installing Patternlab...');
+      exec(command, function(error, stdout, stderr) {
+        // print buffers
+        console.log(stdout, stderr);
+        if (error !== null) {
+          console.error(error);
+        }
+        done();
+      });
+    } else {
+      console.log('Patternlab is already installed, skipping installation...');
+      done();
+    }
+  })
+});
+
+/**
 Copy templates into prototyper
 */
 // array will contain all template copy task-names
@@ -468,6 +503,7 @@ Complete import into patternlab with a build
 **/
 gulp.task('build', function(callback){
   runSequence(
+    'patternlab-install',
     'patternlab-clean',
     'tpl-copy-all',
     'patterns-import-all',
