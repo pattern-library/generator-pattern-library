@@ -543,6 +543,9 @@ gulp.task('watch', function() {
   localPatternsWatcher.on('change', function(event) {
     importSinglePattern(event.path);
   });
+  localPatternsWatcher.on('add', function(event) {
+    importSinglePattern(event.path);
+  });
 
   /*
     Site Files watch tasks

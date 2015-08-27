@@ -26,6 +26,15 @@ Finally, initiate the generator:
 yo pattern library
 ```
 
+#### Build, install, and serve your new pattern library
+
+Once the library has been scaffolded by Yeoman, you'll need to run these commands. NOTE: these instructions are in the README of your new pattern library
+
+* Install Pattern Lab, then import ALL Pattern Libraries and local site files into Pattern Lab
+  `gulp build`
+* Run server, watch files
+  `gulp serve`
+
 ### Pattern Subgenerator
 
 This subgenerator will create a new pattern and it's supporting files inside the local patterns folder `./patterns`
