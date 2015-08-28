@@ -23,7 +23,7 @@ npm install -g generator-pattern-library
 Finally, initiate the generator:
 
 ```bash
-yo pattern library
+yo pattern-library
 ```
 
 #### Build, install, and serve your new pattern library
@@ -40,7 +40,7 @@ Once the library has been scaffolded by Yeoman, you'll need to run these command
 This subgenerator will create a new pattern and it's supporting files inside the local patterns folder `./patterns`
 
 ```bash
-yo pattern library:pattern
+yo pattern-library:pattern
 ```
 
 ## License
