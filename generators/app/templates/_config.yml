@@ -9,9 +9,6 @@ npmPatternRepos:
   -
     name: 'base'
     repoDir: 'pattern-library'
-  -
-    name: 'test'
-    repoDir: 'pattern-library-test'
 templates:
   -
     name: 'site-sass'

@@ -21,14 +21,15 @@ This pattern library was created with the [Pattern Library Generator](https://gi
 
 `npm install -g generator-pattern-library`
 
+### Create a pattern
+
+If you would like to create a new pattern in your local patterns directory, run this command:
+
+`yo pattern-library:pattern`
+
 ### Clone a pattern
 
 If you would like to clone an existing pattern from an NPM-located pattern library run this command:
 
 `COMMAND TBD`
 
-### Create a pattern
-
-If you would like to create a new pattern in your local patterns directory, run this command:
-
-`COMMAND TBD`
