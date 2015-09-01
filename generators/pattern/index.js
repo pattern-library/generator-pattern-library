@@ -3,7 +3,7 @@ var yeoman = require('yeoman-generator'),
   chalk = require('chalk'),
   _ = require('lodash'),
   through2 = require('through2'),
-  utils = require('../../utils');
+  utils = require('../../lib/utils');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: {
