@@ -13,9 +13,6 @@
   "scripts": {
     "test": "mocha"
   },
-  "files": [
-    "generators"
-  ],
   "keywords": [
     "yeoman-generator"
   ],
