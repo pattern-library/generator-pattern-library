@@ -97,7 +97,7 @@ module.exports = yeoman.generators.Base.extend({
       {
         type: 'checkbox',
         name: 'filesToInclude',
-        message: 'Which supporting files should be included?',
+        message: 'Which supporting files should be included? (select with spacebar)',
         choices: [
           {
             name: this.props.patternNameKebab+'.js',

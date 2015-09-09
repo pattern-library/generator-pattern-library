@@ -92,12 +92,12 @@ gulp.task('patterns-import-all', function(){
 /**
  * Glob and Inject JS
  *
- * Separate glob and inject tasks for pattern libraries' and site file's javascript directories.
+ * Separate glob and inject tasks for pattern libraries' and global assets's javascript directories.
  *
  * @example
- * // import site-files
- * `gulp glob-inject-js-sitefiles`
- * // writes `<script>` statements into the target file for each .js file in ./PATH/js/site-files/
+ * // import global assets
+ * `gulp glob-inject-js-globalAssets`
+ * // writes `<script>` statements into the target file for each .js file in ./PATH/js/global-assets/
  *
  * @param {Object} gulp including Gulp object injects the gulp module
  * @param {Object} globbingOptions  object of options
@@ -133,25 +133,25 @@ if(configuration.npmPatternRepos){
   });
 }
 
-// site-files
-var globbingOptionsSiteFiles = {
+// global assets
+var globbingOptionsGlobalAssets = {
   config: {
-    starttag: '<!-- inject:sitefiles:{{ext}} -->',
-    endtag: '<!-- endinjectsite -->',
+    starttag: '<!-- inject:globalassets:{{ext}} -->',
+    endtag: '<!-- endinjectglobalassets -->',
     relative: false,
     ignorePath: '/patternlab/source'
   },
   files: [ // relative paths to files to be globbed
-    configuration.fileTypes.js.prototyperSrcDir + '/site-files/*.js',
-    configuration.fileTypes.js.prototyperSrcDir + '/site-files/**/*.js'
+    configuration.fileTypes.js.prototyperSrcDir + '/'+configuration.globalAssets+'/*.js',
+    configuration.fileTypes.js.prototyperSrcDir + '/'+configuration.globalAssets+'/**/*.js'
   ],
   src: configuration.gulpTasks.fileGlobInject.js.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.js.destDir, // destination directory where we'll write our ammended source file
-  taskName: 'glob-inject-js-sitefiles',
-  dependencies: ['site-files-import-js']
+  taskName: 'glob-inject-js-global-assets',
+  dependencies: ['global-assets-import-js']
 };
-javascriptGlobTasks.push(globbingOptionsSiteFiles.taskName);
-patternUtils.gulpFileGlobInject(gulp,globbingOptionsSiteFiles);
+javascriptGlobTasks.push(globbingOptionsGlobalAssets.taskName);
+patternUtils.gulpFileGlobInject(gulp,globbingOptionsGlobalAssets);
 
 // local-files
 var globbingOptionsLocal = {
@@ -181,12 +181,12 @@ gulp.task('glob-inject-js-all', function(){
 /**
  * Glob and Inject SASS
  *
- * Separate glob and inject tasks for pattern libraries' and site file's SASS (.scss) directories.
+ * Separate glob and inject tasks for pattern libraries' and global asset's SASS (.scss) directories.
  *
  * @example
- * // import site-files
- * `gulp glob-inject-scss-sitefiles`
- * // writes @import statements in the main style.scss file for each .scss file in ./PATH/css/scss/site-files/
+ * // import global assets
+ * `gulp glob-inject-scss-global-assets`
+ * // writes @import statements in the main style.scss file for each .scss file in ./PATH/styles/scss/global-assets/
  *
  * @param {Object} gulp including file should in inject the gulp module
  * @param {Object} projectOptions  object of options
@@ -218,23 +218,23 @@ if(configuration.npmPatternRepos){
   });
 }
 
-// site-files
-var globbingOptionsSiteFiles = {
+// global assets
+var globbingOptionsGlobalAssets = {
   config: {
-    starttag: '// inject:sitefiles:scss',
-    endtag: '// endinjectsite'
+    starttag: '// inject:globalassets:scss',
+    endtag: '// endinjectglobalassets'
   },
   files: [ // relative paths to files to be globbed
-    configuration.fileTypes.sass.prototyperSrcDir + '/site-files/*.scss',
-    configuration.fileTypes.sass.prototyperSrcDir + '/site-files/**/*.scss'
+    configuration.fileTypes.sass.prototyperSrcDir + '/'+configuration.globalAssets+'/*.scss',
+    configuration.fileTypes.sass.prototyperSrcDir + '/'+configuration.globalAssets+'/**/*.scss'
   ],
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
-  taskName: 'glob-inject-sass-sitefiles',
-  dependencies: ['site-files-import-sass']
+  taskName: 'glob-inject-sass-global-assets',
+  dependencies: ['global-assets-import-sass']
 };
-sassGlobTasks.push(globbingOptionsSiteFiles.taskName);
-patternUtils.gulpScssGlobInject(gulp,globbingOptionsSiteFiles);
+sassGlobTasks.push(globbingOptionsGlobalAssets.taskName);
+patternUtils.gulpScssGlobInject(gulp,globbingOptionsGlobalAssets);
 
 // local pattern library
 var globbingOptionsLocal = {
@@ -382,62 +382,62 @@ gulp.task('sass', configuration.gulpTasks.gulpSass.dependencies, function () {
 });
 
 /**
-Site Files Importing
-import files from ./site-files into ./patternlab/sources
+Global Assets Importing
+import files from ./global-assets into ./patternlab/sources
 */
 
-// import sitewide javascript
-gulp.task('site-files-import-js', function(){
+// import global javascript
+gulp.task('global-assets-import-js', function(){
 
-  return gulp.src(configuration.fileTypes.js.sitefilesSrc)
-    .pipe(changed(configuration.fileTypes.js.prototyperSrcDir + '/site-files'))
+  return gulp.src(configuration.fileTypes.js.globalAssetsSrc)
+    .pipe(changed(configuration.fileTypes.js.prototyperSrcDir + '/'+configuration.globalAssets))
     .pipe(print())
-    .pipe(gulp.dest(configuration.fileTypes.js.prototyperSrcDir + '/site-files'));
+    .pipe(gulp.dest(configuration.fileTypes.js.prototyperSrcDir + '/'+configuration.globalAssets));
 
 });
 
-// import sitewide sass
-gulp.task('site-files-import-sass', function(){
+// import global sass
+gulp.task('global-assets-import-sass', function(){
 
-  return gulp.src(configuration.fileTypes.sass.sitefilesSrc)
-    .pipe(changed(configuration.fileTypes.sass.sitefilesDest))
+  return gulp.src(configuration.fileTypes.sass.globalAssetsSrc)
+    .pipe(changed(configuration.fileTypes.sass.globalAssetsDest))
     .pipe(print())
-    .pipe(gulp.dest(configuration.fileTypes.sass.sitefilesDest));
+    .pipe(gulp.dest(configuration.fileTypes.sass.globalAssetsDest));
 
 });
 
-// import sitewide css
-gulp.task('site-files-import-css', function(){
+// import global css
+gulp.task('global-assets-import-css', function(){
 
-  return gulp.src(configuration.fileTypes.css.sitefilesSrc)
-    .pipe(changed(configuration.fileTypes.css.sitefilesDest))
+  return gulp.src(configuration.fileTypes.css.globalAssetsSrc)
+    .pipe(changed(configuration.fileTypes.css.globalAssetsDest))
     .pipe(print())
-    .pipe(gulp.dest(configuration.fileTypes.css.sitefilesDest));
+    .pipe(gulp.dest(configuration.fileTypes.css.globalAssetsDest));
 
 });
 
-// import sitewide fonts
-gulp.task('site-files-import-fonts', function(){
+// import global fonts
+gulp.task('global-assets-import-fonts', function(){
 
-  return gulp.src(configuration.fileTypes.fonts.sitefilesSrc)
-    .pipe(changed(configuration.fileTypes.fonts.sitefilesDest))
+  return gulp.src(configuration.fileTypes.fonts.globalAssetsSrc)
+    .pipe(changed(configuration.fileTypes.fonts.globalAssetsDest))
     .pipe(print())
-    .pipe(gulp.dest(configuration.fileTypes.fonts.sitefilesDest));
+    .pipe(gulp.dest(configuration.fileTypes.fonts.globalAssetsDest));
 
 });
 
-// import sitewide images
-gulp.task('site-files-import-images', function(){
+// import global images
+gulp.task('global-assets-import-images', function(){
 
-  return gulp.src(configuration.fileTypes.images.sitefilesSrc)
-    .pipe(changed(configuration.fileTypes.images.sitefilesDest))
+  return gulp.src(configuration.fileTypes.images.globalAssetsSrc)
+    .pipe(changed(configuration.fileTypes.images.globalAssetsDest))
     .pipe(print())
-    .pipe(gulp.dest(configuration.fileTypes.images.sitefilesDest));
+    .pipe(gulp.dest(configuration.fileTypes.images.globalAssetsDest));
 
 });
 
-// import all sitewide files
-gulp.task('site-files-import-all', ['site-files-import-js', 'site-files-import-sass', 'site-files-import-css', 'site-files-import-fonts', 'site-files-import-images']);
+// import all global files
+gulp.task('global-assets-import-all', ['global-assets-import-js', 'global-assets-import-sass', 'global-assets-import-css', 'global-assets-import-fonts', 'global-assets-import-images']);
 
 /**
 BROWSER SYNC
@@ -495,7 +495,7 @@ function importSinglePattern (file) {
     'patternlab-build-public',
     function(){
       browserSync.reload();
-      console.log('Local pattern file:/n' + file + '/n triggered a watch event. The full Pattern has been re-imported into ' + configuration.prototyperDir);
+      console.log('Local pattern file:/n' + file + '/n triggered a watch event. The full Pattern has been re-imported into ' + configuration.patternlab.dest);
     }
   );
 }
@@ -509,7 +509,7 @@ gulp.task('build', function(callback){
     'patternlab-clean',
     'tpl-copy-all',
     'patterns-import-all',
-    'site-files-import-all',
+    'global-assets-import-all',
     function(){
       console.log('Import of files into patternlab complete');
       callback();
@@ -548,61 +548,61 @@ gulp.task('watch', function() {
   });
 
   /*
-    Site Files watch tasks
+    Global Assets watch tasks
   */
-  // Site Files CSS
-  watch(configuration.fileTypes.css.sitefilesSrc, function(){
+  // Global Assets CSS
+  watch(configuration.fileTypes.css.globalAssetsSrc, function(){
     runSequence(
-      'site-files-import-css',
+      'global-assets-import-css',
       'patternlab-build-public',
       function(){
         browserSync.reload();
-        console.log('Site-Files css file change.');
+        console.log('Global Assets css file change.');
       }
     );
   });
-  // Site Files Fonts
-  watch(configuration.fileTypes.fonts.sitefilesSrc, function(){
+  // Global Assets Fonts
+  watch(configuration.fileTypes.fonts.globalAssetsSrc, function(){
     runSequence(
-      'site-files-import-fonts',
+      'global-assets-import-fonts',
       'patternlab-build-public',
       function(){
         browserSync.reload();
-        console.log('Site-Files font file change.');
+        console.log('Global Assets font file change.');
       }
     );
   });
-  // Site Files Images
-  watch(configuration.fileTypes.images.sitefilesSrc, function(){
+  // Global Assets Images
+  watch(configuration.fileTypes.images.globalAssetsSrc, function(){
     runSequence(
-      'site-files-import-images',
+      'global-assets-import-images',
       'patternlab-build-public',
       function(){
         browserSync.reload();
-        console.log('Site-Files image file change.');
+        console.log('Global Assets image file change.');
       }
     );
   });
-  // Site Files JS
-  watch(configuration.fileTypes.js.sitefilesSrc, function(){
+  // Global Assets JS
+  watch(configuration.fileTypes.js.globalAssetsSrc, function(){
     runSequence(
-      'glob-inject-js-sitefiles',
+      'glob-inject-js-global-assets',
       'patternlab-build-public',
       function(){
         browserSync.reload();
-        console.log('Site-Files js file change.');
+        console.log('Global Assets js file change.');
       }
     );
   });
-  // Site Files SASS
-  watch(configuration.fileTypes.sass.sitefilesSrc, function(){
+  // Global Assets SASS
+  watch(configuration.fileTypes.sass.globalAssetsSrc, function(){
     runSequence(
       'glob-inject-sass-local',
       'sass',
       'patternlab-build-public',
       function(){
         browserSync.reload();
-        console.log('Site-Files scss file change.');
+        console.log('Global Assets scss file change.');
       }
     );
   });
