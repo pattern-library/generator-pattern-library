@@ -60,8 +60,8 @@ Any changes to files in the `./patterns` directory will automatically be importe
 
 as a twig include, yes.
 
- * [how to twig includes](how to twig includes)
- * [example pattern with include](example pattern with include)
+ * [how to twig includes](http://twig.sensiolabs.org/doc/tags/include.html)
+ * [example pattern with include](https://github.com/pattern-library/pattern-library/blob/master/patterns/molecules/media/figure-image/figure-image.twig)
 
 ## Can I modify an existing pattern?
 
