@@ -65,7 +65,7 @@ as a twig include, yes.
 
 ## Can I modify an existing pattern?
 
-Right now, you just need to create a pattern as noted above and extract out what is needed from the file in patternlab directory.
+Right now, you just need to create a pattern as noted above (with `yo`) and extract out what is needed from the file in the patternlab directory.
 
 We will be adding this as a feature to the Yeoman generator
 
