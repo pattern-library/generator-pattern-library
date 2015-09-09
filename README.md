@@ -56,14 +56,14 @@ All html patterns in your pattern library will be located in `./patterns`. They 
 
 Any changes to files in the `./patterns` directory will automatically be imported into your local Pattern Lab instance as long as you have run the `gulp serve` command and your server is running.
 
-## Can I include one pattern in another?
+### Can I include one pattern in another?
 
 as a twig include, yes.
 
  * [how to twig includes](how to twig includes)
  * [example pattern with include](example pattern with include)
 
-## Can I modify an existing pattern?
+### Can I modify an existing pattern?
 
 Right now, you just need to create a pattern as noted above and extract out what is needed from the file in patternlab directory.
 
