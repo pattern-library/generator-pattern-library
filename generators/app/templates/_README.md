@@ -10,7 +10,7 @@ This repository is a set of html patterns following the [pattern-library](http:/
 
 ## Installation
 
-* Install Pattern Lab, then import ALL Pattern Libraries and local site files into Pattern Lab
+* Install Pattern Lab, then import ALL Pattern Libraries and Global Assets into Pattern Lab
   `gulp build`
 * Run server, watch files
   `gulp serve`

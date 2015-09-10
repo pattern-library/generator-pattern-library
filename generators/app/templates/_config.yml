@@ -1,9 +1,8 @@
 dataFileName: 'pattern.yml'
-prototyperDir: './patternlab'
 patternlab:
   dest: './patternlab'
   version: '0.6.6'
-sitefilesDir: './site-files'
+globalAssets: './global-assets'
 githubrepo: <%= reponame %>
 npmPatternRepos:
   -
@@ -27,38 +26,38 @@ templates:
     destFile: '_01-foot.twig'
 fileTypes:
   css:
-    sitefilesSrc:
-      - '{{ sitefilesDir }}/css/**/*.css'
-    sitefilesDest: '{{ prototyperDir }}/source/css/site-files'
+    globalAssetsSrc:
+      - '{{ globalAssets }}/css/**/*.css'
+    globalAssetsDest: '{{ patternlab.dest }}/source/css/global-assets'
   fonts:
-    sitefilesSrc:
-      - '{{ sitefilesDir }}/fonts/*'
-      - '{{ sitefilesDir }}/fonts/**/*'
-    sitefilesDest: '{{ prototyperDir }}/source/fonts'
+    globalAssetsSrc:
+      - '{{ globalAssets }}/fonts/*'
+      - '{{ globalAssets }}/fonts/**/*'
+    globalAssetsDest: '{{ patternlab.dest }}/source/fonts'
   images:
-    sitefilesSrc:
-      - '{{ sitefilesDir }}/images/*'
-      - '{{ sitefilesDir }}/images/**/*'
-    sitefilesDest: '{{ prototyperDir }}/source/images'
+    globalAssetsSrc:
+      - '{{ globalAssets }}/images/*'
+      - '{{ globalAssets }}/images/**/*'
+    globalAssetsDest: '{{ patternlab.dest }}/source/images'
   js:
-    prototyperSrcDir: '{{ prototyperDir }}/source/js'
-    sitefilesSrc:
-      - '{{ sitefilesDir }}/js/**/*.js'
+    prototyperSrcDir: '{{ patternlab.dest }}/source/js'
+    globalAssetsSrc:
+      - '{{ globalAssets }}/js/**/*.js'
   patterns:
-    prototyperDestDir: '{{ prototyperDir }}/source/_patterns'
+    prototyperDestDir: '{{ patternlab.dest }}/source/_patterns'
   sass:
-    prototyperSrcDir: '{{ prototyperDir }}/source/css/scss'
-    prototyperSrc: '{{ prototyperDir }}/source/css/scss/style.scss'
-    prototyperDestDir: '{{ prototyperDir }}/source/css'
-    prototyperDest: '{{ prototyperDir }}/source/css/style.css'
-    sitefilesSrc:
-      - '{{ sitefilesDir }}/css/scss/**/*.scss'
-    sitefilesDest: '{{ prototyperDir }}/source/css/scss/site-files'
+    prototyperSrcDir: '{{ patternlab.dest }}/source/css/scss'
+    prototyperSrc: '{{ patternlab.dest }}/source/css/scss/style.scss'
+    prototyperDestDir: '{{ patternlab.dest }}/source/css'
+    prototyperDest: '{{ patternlab.dest }}/source/css/style.css'
+    globalAssetsSrc:
+      - '{{ globalAssets }}/css/scss/**/*.scss'
+    globalAssetsDest: '{{ patternlab.dest }}/source/css/scss/global-assets'
 gulpTasks:
   fileGlobInject:
     js:
-      srcFile: '{{ prototyperDir }}/source/_meta/_01-foot.twig'
-      destDir: '{{ prototyperDir }}/source/_meta'
+      srcFile: '{{ patternlab.dest }}/source/_meta/_01-foot.twig'
+      destDir: '{{ patternlab.dest }}/source/_meta'
     sass:
       srcFile: '{{ fileTypes.sass.prototyperSrc }}'
       destDir: '{{ fileTypes.sass.prototyperSrcDir }}'
@@ -77,4 +76,4 @@ gulpTasks:
   replaceUrl:
     ghPagesPrefix: '/{{ githubrepo }}'
     src:
-      - '{{ prototyperDir }}/source/**/*.json'
+      - '{{ patternlab.dest }}/source/**/*.json'

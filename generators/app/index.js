@@ -94,30 +94,34 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('patterns/.gitkeep')
       );
 
-      // site files and assets directories
+      // global assets directories
       this.fs.copy(
         this.templatePath('gitkeep'),
-        this.destinationPath('site-files/.gitkeep')
+        this.destinationPath('global-assets/.gitkeep')
       );
       this.fs.copy(
         this.templatePath('gitkeep'),
-        this.destinationPath('site-files/css/.gitkeep')
+        this.destinationPath('global-assets/styles/.gitkeep')
       );
       this.fs.copy(
         this.templatePath('gitkeep'),
-        this.destinationPath('site-files/css/scss/.gitkeep')
+        this.destinationPath('global-assets/styles/css/.gitkeep')
       );
       this.fs.copy(
         this.templatePath('gitkeep'),
-        this.destinationPath('site-files/fonts/.gitkeep')
+        this.destinationPath('global-assets/styles/scss/.gitkeep')
       );
       this.fs.copy(
         this.templatePath('gitkeep'),
-        this.destinationPath('site-files/images/.gitkeep')
+        this.destinationPath('global-assets/fonts/.gitkeep')
       );
       this.fs.copy(
         this.templatePath('gitkeep'),
-        this.destinationPath('site-files/js/.gitkeep')
+        this.destinationPath('global-assets/images/.gitkeep')
+      );
+      this.fs.copy(
+        this.templatePath('gitkeep'),
+        this.destinationPath('global-assets/js/.gitkeep')
       );
     },
     transformFiles: function () {
