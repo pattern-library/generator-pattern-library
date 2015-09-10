@@ -65,7 +65,7 @@ as a twig include, yes.
 
 ## Can I modify a pattern imported from the NPM-based pattern library (for example, the existing promo pattern)?
 
-Right now, you can you copy the respective pattern files from `node_modules/pattern-library/patterns/` directory. For example, the promo pattern would be found `node_modules/pattern-library/patterns/molecules/components/promo` 
+Right now, you can you copy the respective pattern files from the `node_modules/pattern-library/patterns/` directory. For example, the promo pattern is found here: `node_modules/pattern-library/patterns/molecules/components/promo` 
 
 We will be adding this as a feature to the Yeoman generator
 
