@@ -63,9 +63,9 @@ as a twig include, yes.
  * [how to twig includes](http://twig.sensiolabs.org/doc/tags/include.html)
  * [example pattern with include](https://github.com/pattern-library/pattern-library/blob/master/patterns/molecules/media/figure-image/figure-image.twig)
 
-## Can I modify an existing pattern?
+## Can I modify a pattern imported from the NPM-based pattern library (for example, the existing promo pattern)?
 
-Right now, you just need to create a pattern as noted above (with `yo`) and extract out what is needed from the file in the patternlab directory.
+Right now, you can you copy the respective pattern files from `node_modules/pattern-library/patterns/` directory. For example, the promo pattern would be found `node_modules/pattern-library/patterns/molecules/components/promo` 
 
 We will be adding this as a feature to the Yeoman generator
 
