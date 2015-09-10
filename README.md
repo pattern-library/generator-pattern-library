@@ -56,6 +56,20 @@ All html patterns in your pattern library will be located in `./patterns`. They 
 
 Any changes to files in the `./patterns` directory will automatically be imported into your local Pattern Lab instance as long as you have run the `gulp serve` command and your server is running.
 
+## Can I include one pattern in another?
+
+as a twig include, yes.
+
+ * [how to twig includes](http://twig.sensiolabs.org/doc/tags/include.html)
+ * [example pattern with include](https://github.com/pattern-library/pattern-library/blob/master/patterns/molecules/media/figure-image/figure-image.twig)
+
+## Can I modify a pattern imported from the NPM-based pattern library (for example, the existing promo pattern)?
+
+Right now, you can you copy the respective pattern files from the `node_modules/pattern-library/patterns/` directory. For example, the promo pattern is found here: `node_modules/pattern-library/patterns/molecules/components/promo` 
+
+We will be adding this as a feature to the Yeoman generator
+
+
 ### Site Assets/Files
 
 `./site-files`
