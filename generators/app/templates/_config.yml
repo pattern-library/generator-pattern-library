@@ -27,7 +27,7 @@ templates:
 fileTypes:
   css:
     globalAssetsSrc:
-      - '{{ globalAssets }}/css/**/*.css'
+      - '{{ globalAssets }}/styles/css/**/*.css'
     globalAssetsDest: '{{ patternlab.dest }}/source/css/global-assets'
   fonts:
     globalAssetsSrc:
@@ -51,7 +51,7 @@ fileTypes:
     prototyperDestDir: '{{ patternlab.dest }}/source/css'
     prototyperDest: '{{ patternlab.dest }}/source/css/style.css'
     globalAssetsSrc:
-      - '{{ globalAssets }}/css/scss/**/*.scss'
+      - '{{ globalAssets }}/styles/scss/**/*.scss'
     globalAssetsDest: '{{ patternlab.dest }}/source/css/scss/global-assets'
 gulpTasks:
   fileGlobInject:
