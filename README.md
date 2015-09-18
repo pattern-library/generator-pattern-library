@@ -6,9 +6,14 @@
 * [Composer](https://getcomposer.org)
 * [NodeJS](https://nodejs.org)
 * [Yeoman](http://yeoman.io)
+* [Gulp](http://gulpjs.com/)
 
 ```
 npm install -g yo
+```
+
+```
+npm install --global gulp
 ```
 
 ## Pattern Library Generator
