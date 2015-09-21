@@ -8,14 +8,6 @@
 * [Yeoman](http://yeoman.io)
 * [Gulp](http://gulpjs.com/)
 
-```
-npm install -g yo
-```
-
-```
-npm install --global gulp
-```
-
 ## Pattern Library Generator
 
 The Pattern Library Yeoman Generator is used to scaffold out a complete pattern library structure.
