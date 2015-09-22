@@ -57,9 +57,9 @@ Any changes to files in the `./patterns` directory will automatically be importe
 
 as a twig include, yes.
 
- * [how to twig includes](https://github.com/pattern-lab/patternengine-php-twig#pattern-includes):
+ `{% include "[patternType]-[patternName]" %}` eg: `{% include 'molecules-circle' %}`
 
-`{% include "[patternType]-[patternName]" %}` eg: `{% include 'molecules-circle' %}`
+ ref: [how to twig includes](https://github.com/pattern-lab/patternengine-php-twig#pattern-includes)
 
 ## Can I modify a pattern imported from the NPM-based pattern library (for example, the existing promo pattern)?
 
