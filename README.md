@@ -57,8 +57,9 @@ Any changes to files in the `./patterns` directory will automatically be importe
 
 as a twig include, yes.
 
- * [how to twig includes](http://twig.sensiolabs.org/doc/tags/include.html)
- * [example pattern with include](https://github.com/pattern-library/pattern-library/blob/master/patterns/molecules/media/figure-image/figure-image.twig)
+ `{% include "[patternType]-[patternName]" %}` eg: `{% include 'molecules-circle' %}`
+
+ ref: [how to twig includes](https://github.com/pattern-lab/patternengine-php-twig#pattern-includes)
 
 ## Can I modify a pattern imported from the NPM-based pattern library (for example, the existing promo pattern)?
 
@@ -69,11 +70,11 @@ We will be adding this as a feature to the Yeoman generator
 
 ### Site Assets/Files
 
-`./site-files`
+`./global-assets`
 
 You may also have files that aren't directly associated with a single pattern. These could include site-wide css, fonts, images, etc. 
 
-Any changes to files in the `./site-files` directory will automatically be imported into your local Pattern Lab instance as long as you have run the `gulp serve` command and your server is running.
+Any changes to files in the `./global-assets` directory will automatically be imported into your local Pattern Lab instance as long as you have run the `gulp serve` command and your server is running.
 
 ## License
 
