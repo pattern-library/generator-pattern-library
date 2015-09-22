@@ -59,7 +59,7 @@ as a twig include, yes.
 
  * [how to twig includes](https://github.com/pattern-lab/patternengine-php-twig#pattern-includes):
 
- `{% include "[patternType]-[patternName]" }}` eg: `{% include 'molecules-circle' %}`
+`{% include "[patternType]-[patternName]" %}` eg: `{% include 'molecules-circle' %}`
 
 ## Can I modify a pattern imported from the NPM-based pattern library (for example, the existing promo pattern)?
 
