@@ -54,6 +54,8 @@ fileTypes:
       - '{{ globalAssets }}/styles/scss/**/*.scss'
     globalAssetsDest: '{{ patternlab.dest }}/source/css/scss/global-assets'
 gulpTasks:
+  clonePattern:
+    taskName: clone
   fileGlobInject:
     js:
       srcFile: '{{ patternlab.dest }}/source/_meta/_01-foot.twig'

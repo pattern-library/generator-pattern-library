@@ -93,6 +93,21 @@ gulp.task('patterns-import-all', function () {
 });
 
 /**
+ * Pattern Cloner
+ *
+ * Imports the Gulp task that clones a pattern-library pattern
+ *
+ * @example
+ * // clone the logo pattern from the base pattern-library
+ * `$ gulp clone-pattern --pattern node_modules/pattern-library/patterns/molecules/images/logo`
+ *
+ */
+var cloneOptions = {
+  taskName: configuration.gulpTasks.clonePattern.taskName
+}
+patternUtils.gulpClonePattern(require('gulp'),cloneOptions);
+
+/**
  * Glob and Inject JS
  *
  * Separate glob and inject tasks for pattern libraries' and global assets's javascript directories.
