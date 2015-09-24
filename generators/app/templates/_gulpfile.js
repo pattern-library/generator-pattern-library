@@ -69,7 +69,8 @@ if (configuration.npmPatternRepos) {
       config: {
         htmlTemplateDest: configuration.fileTypes.patterns.prototyperDestDir,
         stylesDest: configuration.fileTypes.sass.prototyperSrcDir + '/npm/' + repo.name,
-        scriptsDest: configuration.fileTypes.js.prototyperSrcDir + '/npm/' + repo.name
+        scriptsDest: configuration.fileTypes.js.prototyperSrcDir + '/npm/' + repo.name,
+        convertCategoryTitles: configuration.gulpTasks.patternImporter.npmPatterns.config.convertCategoryTitles
       },
       taskName: 'patterns-import-npm-' + repo.name,
       src: ['./node_modules/' + repo.repoDir + '/patterns/**/pattern.yml']

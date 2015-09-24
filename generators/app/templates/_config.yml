@@ -70,9 +70,13 @@ gulpTasks:
         htmlTemplateDest: '{{ fileTypes.patterns.prototyperDestDir }}'
         stylesDest: '{{ fileTypes.sass.prototyperSrcDir }}/local'
         scriptsDest: '{{ fileTypes.js.prototyperSrcDir }}/local'
+        convertCategoryTitles: false
       taskName: 'patterns-import-local'
       src:
         - './patterns/**/pattern.yml'
+    npmPatterns:
+      config:
+        convertCategoryTitles: false
   replaceUrl:
     ghPagesPrefix: '/{{ githubrepo }}'
     src:
