@@ -69,7 +69,8 @@ if (configuration.npmPatternRepos) {
       config: {
         htmlTemplateDest: configuration.fileTypes.patterns.prototyperDestDir,
         stylesDest: configuration.fileTypes.sass.prototyperSrcDir + '/npm/' + repo.name,
-        scriptsDest: configuration.fileTypes.js.prototyperSrcDir + '/npm/' + repo.name
+        scriptsDest: configuration.fileTypes.js.prototyperSrcDir + '/npm/' + repo.name,
+        convertCategoryTitles: configuration.gulpTasks.patternImporter.npmPatterns.config.convertCategoryTitles
       },
       taskName: 'patterns-import-npm-' + repo.name,
       src: ['./node_modules/' + repo.repoDir + '/patterns/**/pattern.yml']
@@ -90,6 +91,21 @@ gulp.task('patterns-import-all', function () {
   'use strict';
   runSequence.apply(null, patternImportTasks);
 });
+
+/**
+ * Pattern Cloner
+ *
+ * Imports the Gulp task that clones a pattern-library pattern
+ *
+ * @example
+ * // clone the logo pattern from the base pattern-library
+ * `$ gulp clone-pattern --pattern node_modules/pattern-library/patterns/molecules/images/logo`
+ *
+ */
+var cloneOptions = {
+  taskName: configuration.gulpTasks.clonePattern.taskName
+}
+patternUtils.gulpClonePattern(require('gulp'),cloneOptions);
 
 /**
  * Glob and Inject JS
