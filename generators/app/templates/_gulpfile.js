@@ -20,23 +20,9 @@ CONFIGURATION
 */
 // configuration file must be YAML
 var configurationFile = './config.yml';
-var configYml;
 
-// attempt to synchronously open the yaml configuration file
-try {
-  // open the configuration file
-  configYml = fs.readFileSync(configurationFile, {encoding: 'utf8'});
-}
-catch (e) {
-  console.log('Configuration Load Error:', e);
-}
-// convert configuration file to JS Object
-var configObject = patternUtils.convertYamlToObject(configYml);
-// regex to search for variables
-var variableRegex = /{{.*}}/g;
-// convert variables
-var configuration = patternUtils.convertRecursiveJsonVariables(configObject, variableRegex);
-
+// combine configuration with defaults
+var configuration = patternUtils.getProjectOptions(configurationFile);
 
 /******************************************
 NPM-BASED GULP TASKS
