@@ -7,3 +7,9 @@ npm-debug.log
 
 # Ignore project files created by phpstorm
 .idea
+
+# Docs
+docs
+
+# GH Pages
+.publish
