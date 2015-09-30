@@ -7,6 +7,7 @@ var fs = require('fs');
 var gulp = require('gulp');
 var path = require('path');
 var patternUtils = require('pattern-library-utilities');
+var log = patternUtils.logger;
 var print = require('gulp-print');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
@@ -313,33 +314,56 @@ gulp.task('patternlab-clean', function (done) {
  * @requires child_process.exec
  */
 gulp.task('patternlab-install', function (done) {
-  'use strict';
 
   fs.exists(configuration.patternlab.dest, function (exists) {
     if (!exists) {
 
-      // composer create-project pattern-lab/edition-twig-standard has promts,
+      // 1. installing composer locally
+      // 2. composer create-project pattern-lab/edition-twig-standard has promts,
       // passing answers to command in advance to prevent installation blocking.
-      var command = "(echo '1'\
+      var command = "(curl -sS https://getcomposer.org/installer | php) && (echo '1'\
       sleep 1\
       echo 'r'\
-      sleep 1 ) | composer create-project pattern-lab/edition-twig-standard " + configuration.patternlab.dest + ' ' + configuration.patternlab.version;
-
-      console.log('Installing Patternlab...');
-      exec(command, function (error, stdout, stderr) {
-        // print buffers
-        console.log(stdout, stderr);
-        if (error !== null) {
-          console.error(error);
+      sleep 1 ) | " + configuration.patternlab.composer + " create-project pattern-lab/edition-twig-standard " + configuration.patternlab.dest + " " + configuration.patternlab.version;
+      log.info('Installing Patternlab...');
+      var child = exec(command);
+      // output all the streams to log
+      child.stdout.on('data', function (data) {log.info(data.toString());});
+      child.stderr.on('data', function (data) {log.info(data.toString());});
+      child.on('close', function(code) {
+        // output exit code in case of error
+        if (code !== 0) {
+          log.info('Child process exited with code ' + code);
         }
         done();
       });
-    }
-    else {
-      console.log('Patternlab is already installed, skipping installation...');
+    } else {
+      log.info('Patternlab is already installed, skipping installation...');
       done();
     }
+  })
+});
+
+/**
+Generate the Patternlab Public Folder from the Source Folder
+*/
+gulp.task('patternlab-build-public', function (done) {
+  'use strict';
+
+  var command = 'php patternlab/core/console --generate';
+  log.info('Regenerating Pattern Lab public directory...');
+  var child = exec(command);
+  // output all the streams to log
+  child.stdout.on('data', function (data) {log.info(data.toString());});
+  child.stderr.on('data', function (data) {log.info(data.toString());});
+  child.on('close', function(code) {
+    // output exit code in case of error
+    if (code !== 0) {
+      log.info('Child process exited with code ' + code);
+    }
+    done();
   });
+
 });
 
 /**
@@ -368,17 +392,6 @@ if (configuration.templates) {
 }
 // copy all templates in parallel
 gulp.task('tpl-copy-all', copyTemplateTasks);
-
-/**
-Generate the Patternlab Public Folder from the Source Folder
-TODO: error handling
-*/
-gulp.task('patternlab-build-public', function (done) {
-  'use strict';
-
-  return cp.spawn('php', ['patternlab/core/console', '--generate'])
-      .on('close', done);
-});
 
 /******************************************
 PATTERN LIBRARY GULP TASKS
