@@ -19,11 +19,6 @@ npmPatternRepos:
 # templates imported into pattern lab after it is installed by composer
 templates:
   -
-    name: 'site-sass' # short name for this file
-    src: './lib/templates/style.scss' # path to original template
-    destDir: './patternlab/source/css/scss' # destination directory for this template
-    destFile: 'style.scss' # final file name for this template
-  -
     name: 'site-head'
     src: './lib/templates/head.twig'
     destDir: './patternlab/source/_meta'
@@ -61,8 +56,9 @@ fileTypes:
     prototyperSrc: '{{ patternlab.dest }}/source/css/scss/style.scss' # primary sass file in prototyper
     prototyperDestDir: '{{ patternlab.dest }}/source/css' # location for compiled css file in prototyper
     prototyperDest: '{{ patternlab.dest }}/source/css/style.css' # final compiled css file in prototyper
-    globalAssetsSrc: # source of global asset's SASS file(s); left blank for no sass import
-    globalAssetsDest: # destination for global asset's SASS file(s);
+    globalAssetsSrc: # source of global asset's SASS file(s)
+      - '{{ globalAssets }}/styles/scss/**/*.scss'
+    globalAssetsDest: '{{ patternlab.dest }}/source/css/scss/global-assets' # destination for global asset's SASS file(s);
 # configuration variables for gulp tasks
 gulpTasks:
   # cloning a pattern

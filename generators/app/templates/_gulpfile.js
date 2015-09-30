@@ -549,6 +549,8 @@ gulp.task('build', function (callback) {
     'tpl-copy-all',
     'patterns-import-all',
     'global-assets-import-all',
+    'glob-inject-sass-all',
+    'glob-inject-js-all',
     function () {
       console.log('Import of files into patternlab complete');
       callback();
@@ -563,7 +565,8 @@ gulp.task('serve', function (callback) {
   'use strict';
 
   runSequence(
-    ['glob-inject-sass-all', 'glob-inject-js-all'],
+    'glob-inject-sass-all',
+    'glob-inject-js-all',
     'sass',
     'patternlab-build-public',
     'browsersync',
