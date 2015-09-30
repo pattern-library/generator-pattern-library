@@ -76,7 +76,7 @@ as a twig include, yes.
 
 ## How to clone a pattern
 
-...or... "Can I modify a pattern imported from the NPM-based pattern library (for example, the existing promo pattern)?"
+...or... "Can I modify a pattern imported from the NPM-based pattern library (for example, the existing "promo" pattern)?"
 
 Version 0.1.3 of [pattern-library-utilities](https://github.com/pattern-library/pattern-library-utilities) added a cloning feature. It's rudimentary, but it works.
 
