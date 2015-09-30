@@ -13,3 +13,6 @@ npm-debug.log
 
 # patternlab
 patternlab
+
+# composer
+composer.phar
