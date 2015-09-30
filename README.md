@@ -80,7 +80,7 @@ as a twig include, yes.
 
 Version 0.1.3 of [pattern-library-utilities](https://github.com/pattern-library/pattern-library-utilities) added a cloning feature. It's rudimentary, but it works.
 
-**NOTE:** If the pattern folder already exists in your `./pattern` directory, the system will *not* overwrite your local folder. It will exit without cloning.
+**NOTE:** If the pattern folder already exists in your `./patterns` directory, the system will *not* overwrite your local folder. It will exit without cloning.
 
 ### To clone a pattern from NPM to your local ./patterns directory
 
