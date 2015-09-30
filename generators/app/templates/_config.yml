@@ -58,12 +58,11 @@ fileTypes:
     prototyperDestDir: '{{ patternlab.dest }}/source/_patterns' # destination for patterns inside pattern lab
   sass:
     prototyperSrcDir: '{{ patternlab.dest }}/source/css/scss' # sass directory inside source directory inside pattern lab
-    prototyperSrc: '{{ patternlab.dest }}/source/css/scss/style.scss' # primary sass file
-    prototyperDestDir: '{{ patternlab.dest }}/source/css' # location for compiled css file
-    prototyperDest: '{{ patternlab.dest }}/source/css/style.css' # final compiled css file
-    globalAssetsSrc:
-      - '{{ globalAssets }}/styles/scss/**/*.scss'
-    globalAssetsDest: '{{ patternlab.dest }}/source/css/scss/global-assets'
+    prototyperSrc: '{{ patternlab.dest }}/source/css/scss/style.scss' # primary sass file in prototyper
+    prototyperDestDir: '{{ patternlab.dest }}/source/css' # location for compiled css file in prototyper
+    prototyperDest: '{{ patternlab.dest }}/source/css/style.css' # final compiled css file in prototyper
+    globalAssetsSrc: # source of global asset's SASS file(s); left blank for no sass import
+    globalAssetsDest: # destination for global asset's SASS file(s);
 # configuration variables for gulp tasks
 gulpTasks:
   # cloning a pattern
@@ -75,12 +74,18 @@ gulpTasks:
       srcFile: '{{ patternlab.dest }}/source/_meta/_01-foot.twig'
       destDir: '{{ patternlab.dest }}/source/_meta'
     sass:
-      srcFile: '{{ fileTypes.sass.prototyperSrc }}'
-      destDir: '{{ fileTypes.sass.prototyperSrcDir }}'
+      srcFile: '{{ globalAssets }}/styles/scss/style.scss'
+      destDir: '{{ globalAssets }}/styles/scss'
+      filesGlobalAssets:
+        - '!./{{ globalAssets }}/**/style.scss'
+        - './{{ globalAssets }}/**/*.scss'
+      filesLocalPatterns:
+        '{{ localPatternsDir }}/**/*.scss'
   # sass compilation
   gulpSass:
     dependencies:
-      - 'glob-inject-sass-all'
+    src: '{{ globalAssets }}/styles/scss/**/*.scss'
+    dest: '{{ fileTypes.sass.prototyperDestDir }}'
   # pattern importing tasks
   patternImporter:
     localPatterns: # patterns in THIS pattern library

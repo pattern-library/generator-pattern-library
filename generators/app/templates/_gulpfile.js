@@ -213,8 +213,7 @@ if (configuration.npmPatternRepos) {
         endtag: '// endinjectnpm' + repo.name
       },
       files: [ // relative paths to files to be globbed
-        configuration.fileTypes.sass.prototyperSrcDir + '/npm/' + repo.name + '/*.scss',
-        configuration.fileTypes.sass.prototyperSrcDir + '/npm/' + repo.name + '/**/*.scss'
+        './node_modules/' + repo.repoDir + '/patterns/**/*.scss'
       ],
       src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
       dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
@@ -232,14 +231,11 @@ var globbingOptionsGlobalAssetsSass = {
     starttag: '// inject:globalassets:scss',
     endtag: '// endinjectglobalassets'
   },
-  files: [ // relative paths to files to be globbed
-    configuration.fileTypes.sass.prototyperSrcDir + '/' + configuration.globalAssets  + '/*.scss',
-    configuration.fileTypes.sass.prototyperSrcDir + '/' + configuration.globalAssets + '/**/*.scss'
-  ],
+  files: configuration.gulpTasks.fileGlobInject.sass.filesGlobalAssets,
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
   taskName: 'glob-inject-sass-global-assets',
-  dependencies: ['global-assets-import-sass']
+  dependencies: []
 };
 sassGlobTasks.push(globbingOptionsGlobalAssetsSass.taskName);
 patternUtils.gulpScssGlobInject(gulp, globbingOptionsGlobalAssetsSass);
@@ -250,10 +246,7 @@ var globbingOptionsLocalSass = {
     starttag: '// inject:local:scss',
     endtag: '// endinjectlocal'
   },
-  files: [ // relative paths to files to be globbed
-    configuration.fileTypes.sass.prototyperSrcDir + '/local/*.scss',
-    configuration.fileTypes.sass.prototyperSrcDir + '/local/**/*.scss'
-  ],
+  files: configuration.gulpTasks.fileGlobInject.sass.filesGlobalAssets,
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
   taskName: 'glob-inject-sass-local',
@@ -408,9 +401,9 @@ PATTERN LIBRARY GULP TASKS
 gulp.task('sass', configuration.gulpTasks.gulpSass.dependencies, function () {
   'use strict';
 
-  return gulp.src(configuration.fileTypes.sass.prototyperSrc) // primary sass file in SOURCE
+  return gulp.src(configuration.gulpTasks.gulpSass.src) // primary sass file in SOURCE
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest(configuration.fileTypes.sass.prototyperDestDir));
+    .pipe(gulp.dest(configuration.gulpTasks.gulpSass.dest));
 });
 
 /**
@@ -474,7 +467,7 @@ gulp.task('global-assets-import-images', function () {
 });
 
 // import all global files
-gulp.task('global-assets-import-all', ['global-assets-import-js', 'global-assets-import-sass', 'global-assets-import-css', 'global-assets-import-fonts', 'global-assets-import-images']);
+gulp.task('global-assets-import-all', ['global-assets-import-js', 'global-assets-import-css', 'global-assets-import-fonts', 'global-assets-import-images']);
 
 /**
 BROWSER SYNC
