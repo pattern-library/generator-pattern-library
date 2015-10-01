@@ -83,10 +83,6 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('lib/templates/_head.twig'),
         this.destinationPath('lib/templates/head.twig')
       );
-      this.fs.copy(
-        this.templatePath('lib/templates/_style.scss'),
-        this.destinationPath('lib/templates/style.scss')
-      );
 
       // local pattern library directory
       this.fs.copy(
@@ -110,6 +106,10 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(
         this.templatePath('gitkeep'),
         this.destinationPath('global-assets/styles/scss/.gitkeep')
+      );
+      this.fs.copy(
+        this.templatePath('global-assets/styles/scss/_style.scss'),
+        this.destinationPath('global-assets/styles/scss/style.scss')
       );
       this.fs.copy(
         this.templatePath('gitkeep'),

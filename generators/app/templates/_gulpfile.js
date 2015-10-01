@@ -1,11 +1,9 @@
 var browserSync = require('browser-sync').create();
 var changed = require('gulp-changed');
-var cp = require('child_process');
 var del = require('del');
 var exec = require('child_process').exec;
 var fs = require('fs');
 var gulp = require('gulp');
-var path = require('path');
 var patternUtils = require('pattern-library-utilities');
 var log = patternUtils.logger;
 var print = require('gulp-print');
@@ -91,8 +89,8 @@ gulp.task('patterns-import-all', function () {
  */
 var cloneOptions = {
   taskName: configuration.gulpTasks.clonePattern.taskName
-}
-patternUtils.gulpClonePattern(require('gulp'),cloneOptions);
+};
+patternUtils.gulpClonePattern(require('gulp'), cloneOptions);
 
 /**
  * Glob and Inject JS
@@ -213,8 +211,7 @@ if (configuration.npmPatternRepos) {
         endtag: '// endinjectnpm' + repo.name
       },
       files: [ // relative paths to files to be globbed
-        configuration.fileTypes.sass.prototyperSrcDir + '/npm/' + repo.name + '/*.scss',
-        configuration.fileTypes.sass.prototyperSrcDir + '/npm/' + repo.name + '/**/*.scss'
+        './node_modules/' + repo.repoDir + '/patterns/**/*.scss'
       ],
       src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
       dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
@@ -232,14 +229,11 @@ var globbingOptionsGlobalAssetsSass = {
     starttag: '// inject:globalassets:scss',
     endtag: '// endinjectglobalassets'
   },
-  files: [ // relative paths to files to be globbed
-    configuration.fileTypes.sass.prototyperSrcDir + '/' + configuration.globalAssets  + '/*.scss',
-    configuration.fileTypes.sass.prototyperSrcDir + '/' + configuration.globalAssets + '/**/*.scss'
-  ],
+  files: configuration.gulpTasks.fileGlobInject.sass.filesGlobalAssets,
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
   taskName: 'glob-inject-sass-global-assets',
-  dependencies: ['global-assets-import-sass']
+  dependencies: []
 };
 sassGlobTasks.push(globbingOptionsGlobalAssetsSass.taskName);
 patternUtils.gulpScssGlobInject(gulp, globbingOptionsGlobalAssetsSass);
@@ -250,10 +244,7 @@ var globbingOptionsLocalSass = {
     starttag: '// inject:local:scss',
     endtag: '// endinjectlocal'
   },
-  files: [ // relative paths to files to be globbed
-    configuration.fileTypes.sass.prototyperSrcDir + '/local/*.scss',
-    configuration.fileTypes.sass.prototyperSrcDir + '/local/**/*.scss'
-  ],
+  files: configuration.gulpTasks.fileGlobInject.sass.filesGlobalAssets,
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
   taskName: 'glob-inject-sass-local',
@@ -302,7 +293,7 @@ gulp.task('patternlab-clean', function (done) {
 
   del(['patternlab/source/_patterns'], function (err, paths) {
 
-    console.log('Deleted files/folders:\n', paths.join('\n'));
+    log.info('Deleted files/folders:\n', paths.join('\n'));
     done();
   });
 });
@@ -314,6 +305,7 @@ gulp.task('patternlab-clean', function (done) {
  * @requires child_process.exec
  */
 gulp.task('patternlab-install', function (done) {
+  'use strict';
 
   fs.exists(configuration.patternlab.dest, function (exists) {
     if (!exists) {
@@ -328,20 +320,21 @@ gulp.task('patternlab-install', function (done) {
       log.info('Installing Patternlab...');
       var child = exec(command);
       // output all the streams to log
-      child.stdout.on('data', function (data) {log.info(data.toString());});
-      child.stderr.on('data', function (data) {log.info(data.toString());});
-      child.on('close', function(code) {
+      child.stdout.on('data', function (data) {log.info(data.toString()); });
+      child.stderr.on('data', function (data) {log.info(data.toString()); });
+      child.on('close', function (code) {
         // output exit code in case of error
         if (code !== 0) {
           log.info('Child process exited with code ' + code);
         }
         done();
       });
-    } else {
+    }
+    else {
       log.info('Patternlab is already installed, skipping installation...');
       done();
     }
-  })
+  });
 });
 
 /**
@@ -354,9 +347,9 @@ gulp.task('patternlab-build-public', function (done) {
   log.info('Regenerating Pattern Lab public directory...');
   var child = exec(command);
   // output all the streams to log
-  child.stdout.on('data', function (data) {log.info(data.toString());});
-  child.stderr.on('data', function (data) {log.info(data.toString());});
-  child.on('close', function(code) {
+  child.stdout.on('data', function (data) {log.info(data.toString()); });
+  child.stderr.on('data', function (data) {log.info(data.toString()); });
+  child.on('close', function (code) {
     // output exit code in case of error
     if (code !== 0) {
       log.info('Child process exited with code ' + code);
@@ -408,9 +401,9 @@ PATTERN LIBRARY GULP TASKS
 gulp.task('sass', configuration.gulpTasks.gulpSass.dependencies, function () {
   'use strict';
 
-  return gulp.src(configuration.fileTypes.sass.prototyperSrc) // primary sass file in SOURCE
+  return gulp.src(configuration.gulpTasks.gulpSass.src) // primary sass file in SOURCE
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest(configuration.fileTypes.sass.prototyperDestDir));
+    .pipe(gulp.dest(configuration.gulpTasks.gulpSass.dest));
 });
 
 /**
@@ -474,7 +467,7 @@ gulp.task('global-assets-import-images', function () {
 });
 
 // import all global files
-gulp.task('global-assets-import-all', ['global-assets-import-js', 'global-assets-import-sass', 'global-assets-import-css', 'global-assets-import-fonts', 'global-assets-import-images']);
+gulp.task('global-assets-import-all', ['global-assets-import-js', 'global-assets-import-css', 'global-assets-import-fonts', 'global-assets-import-images']);
 
 /**
 BROWSER SYNC
@@ -539,7 +532,7 @@ function importSinglePattern(file) {
     'patternlab-build-public',
     function () {
       browserSync.reload();
-      console.log('Local pattern file triggered a watch event. The full Pattern has been re-imported into ' + configuration.patternlab.dest);
+      log.info('Local pattern file triggered a watch event. The full Pattern has been re-imported into ' + configuration.patternlab.dest);
     }
   );
 }
@@ -556,8 +549,10 @@ gulp.task('build', function (callback) {
     'tpl-copy-all',
     'patterns-import-all',
     'global-assets-import-all',
+    'glob-inject-sass-all',
+    'glob-inject-js-all',
     function () {
-      console.log('Import of files into patternlab complete');
+      log.info('Import of files into patternlab complete');
       callback();
     }
   );
@@ -570,7 +565,8 @@ gulp.task('serve', function (callback) {
   'use strict';
 
   runSequence(
-    ['glob-inject-sass-all', 'glob-inject-js-all'],
+    'glob-inject-sass-all',
+    'glob-inject-js-all',
     'sass',
     'patternlab-build-public',
     'browsersync',
@@ -606,7 +602,7 @@ gulp.task('watch', function () {
       'patternlab-build-public',
       function () {
         browserSync.reload();
-        console.log('Global Assets css file change.');
+        log.info('Global Assets css file change.');
       }
     );
   });
@@ -617,7 +613,7 @@ gulp.task('watch', function () {
       'patternlab-build-public',
       function () {
         browserSync.reload();
-        console.log('Global Assets font file change.');
+        log.info('Global Assets font file change.');
       }
     );
   });
@@ -628,7 +624,7 @@ gulp.task('watch', function () {
       'patternlab-build-public',
       function () {
         browserSync.reload();
-        console.log('Global Assets image file change.');
+        log.info('Global Assets image file change.');
       }
     );
   });
@@ -639,7 +635,7 @@ gulp.task('watch', function () {
       'patternlab-build-public',
       function () {
         browserSync.reload();
-        console.log('Global Assets js file change.');
+        log.info('Global Assets js file change.');
       }
     );
   });
@@ -651,7 +647,7 @@ gulp.task('watch', function () {
       'patternlab-build-public',
       function () {
         browserSync.reload();
-        console.log('Global Assets scss file change.');
+        log.info('Global Assets scss file change.');
       }
     );
   });

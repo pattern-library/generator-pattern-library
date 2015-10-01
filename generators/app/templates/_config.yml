@@ -19,11 +19,6 @@ npmPatternRepos:
 # templates imported into pattern lab after it is installed by composer
 templates:
   -
-    name: 'site-sass' # short name for this file
-    src: './lib/templates/style.scss' # path to original template
-    destDir: './patternlab/source/css/scss' # destination directory for this template
-    destFile: 'style.scss' # final file name for this template
-  -
     name: 'site-head'
     src: './lib/templates/head.twig'
     destDir: './patternlab/source/_meta'
@@ -58,12 +53,12 @@ fileTypes:
     prototyperDestDir: '{{ patternlab.dest }}/source/_patterns' # destination for patterns inside pattern lab
   sass:
     prototyperSrcDir: '{{ patternlab.dest }}/source/css/scss' # sass directory inside source directory inside pattern lab
-    prototyperSrc: '{{ patternlab.dest }}/source/css/scss/style.scss' # primary sass file
-    prototyperDestDir: '{{ patternlab.dest }}/source/css' # location for compiled css file
-    prototyperDest: '{{ patternlab.dest }}/source/css/style.css' # final compiled css file
-    globalAssetsSrc:
+    prototyperSrc: '{{ patternlab.dest }}/source/css/scss/style.scss' # primary sass file in prototyper
+    prototyperDestDir: '{{ patternlab.dest }}/source/css' # location for compiled css file in prototyper
+    prototyperDest: '{{ patternlab.dest }}/source/css/style.css' # final compiled css file in prototyper
+    globalAssetsSrc: # source of global asset's SASS file(s)
       - '{{ globalAssets }}/styles/scss/**/*.scss'
-    globalAssetsDest: '{{ patternlab.dest }}/source/css/scss/global-assets'
+    globalAssetsDest: '{{ patternlab.dest }}/source/css/scss/global-assets' # destination for global asset's SASS file(s);
 # configuration variables for gulp tasks
 gulpTasks:
   # cloning a pattern
@@ -75,12 +70,18 @@ gulpTasks:
       srcFile: '{{ patternlab.dest }}/source/_meta/_01-foot.twig'
       destDir: '{{ patternlab.dest }}/source/_meta'
     sass:
-      srcFile: '{{ fileTypes.sass.prototyperSrc }}'
-      destDir: '{{ fileTypes.sass.prototyperSrcDir }}'
+      srcFile: '{{ globalAssets }}/styles/scss/style.scss'
+      destDir: '{{ globalAssets }}/styles/scss'
+      filesGlobalAssets:
+        - '!./{{ globalAssets }}/**/style.scss'
+        - './{{ globalAssets }}/**/*.scss'
+      filesLocalPatterns:
+        '{{ localPatternsDir }}/**/*.scss'
   # sass compilation
   gulpSass:
     dependencies:
-      - 'glob-inject-sass-all'
+    src: '{{ globalAssets }}/styles/scss/**/*.scss'
+    dest: '{{ fileTypes.sass.prototyperDestDir }}'
   # pattern importing tasks
   patternImporter:
     localPatterns: # patterns in THIS pattern library

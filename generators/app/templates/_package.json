@@ -12,10 +12,10 @@
     "gulp-sass": "^2.0.4",
     "gulp-task-listing": "^1.0.1",
     "gulp-watch": "^4.3.5",
-    "pattern-library-utilities": "^0.1.7",
+    "pattern-library-utilities": "^0.1.8",
     "run-sequence": "^1.1.2"
   },
   "dependencies": {
-    "pattern-library": "^0.1.2"
+    "pattern-library": "^0.1.3"
   }
 }
