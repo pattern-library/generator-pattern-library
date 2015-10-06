@@ -57,6 +57,7 @@ fileTypes:
     prototyperDestDir: '{{ patternlab.dest }}/source/css' # location for compiled css file in prototyper
     prototyperDest: '{{ patternlab.dest }}/source/css/style.css' # final compiled css file in prototyper
     globalAssetsSrc: # source of global asset's SASS file(s)
+      - '!{{ globalAssets }}/styles/scss/style.scss'
       - '{{ globalAssets }}/styles/scss/**/*.scss'
     globalAssetsDest: '{{ patternlab.dest }}/source/css/scss/global-assets' # destination for global asset's SASS file(s);
 # configuration variables for gulp tasks
