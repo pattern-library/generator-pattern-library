@@ -24,6 +24,31 @@ Finally, initiate the generator:
 yo pattern-library
 ```
 
+#### Generator Setup Steps
+1. **Pattern Library Project Name?**
+  
+  This name will be used at the Title of the Readme as in "[Project Name] Pattern Library"
+  
+  **NOTE:**  If this not explicitly set, your current directory name will be added by default. If you decide to change this, you can update the README directly in your project
+  
+  
+2. **If this pattern library has been added to Github, please provide the repo name:**
+
+  Adding the repo name lets you share your project with others (yay!) and allows you to push to gh-pages (more to come on this) 
+  
+  **Example:** if your github repo url is "*github.com/organization/org-pattern-library*", then your repository name here would be added as "*org-pattern-library*"
+
+  **NOTE:** If you skip this question and decide you want/need to add this later, you will need to update the following files with "repo-name" values:
+  
+  **package.json**
+  
+  `"name": "repo-name"`
+  
+  **config.yml**
+  
+  `githubrepo: 'repo-name'`
+
+
 ### Build, install, and serve your new pattern library
 
 Once the library has been scaffolded by Yeoman, you'll need to run these commands. NOTE: these instructions are in the README of your new pattern library
@@ -94,6 +119,12 @@ If you were going to import the [h1 atoms/text pattern](https://github.com/patte
 
 `gulp clone --pattern node_modules/pattern-library/patterns/atoms/text/h1`
 
+
+## How to add your Github repo information to your project
+     
+See **[Generator Setup Steps](#generator-setup-steps)** (step 2) above
+  
+
 ## How to import a new pattern library from a GitHub repo into your pattern library
 
 **NOTE:**  turn off `gulp serve` before importing a new library
@@ -122,15 +153,15 @@ If you were going to import the [h1 atoms/text pattern](https://github.com/patte
     ```
 3. Run the import task for all libraries
 
-  	```
-  	gulp patterns-import-all
-  	```
-  	
-  	* alternatively, you can import *just this one library* into Pattern Lab  	
+    ```
+    gulp patterns-import-all
+    ```
+    
+    * alternatively, you can import *just this one library* into Pattern Lab    
 
-  	```
-  	gulp patterns-import-npm-scottnath
-  	```
+    ```
+    gulp patterns-import-npm-scottnath
+    ```
 4. Start the server
 
 
