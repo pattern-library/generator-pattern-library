@@ -38,7 +38,7 @@ yo pattern-library
   
   **Example:** if your github repo url is "*github.com/organization/org-pattern-library*", then your repository name here would be added as "*org-pattern-library*"
 
-  **NOTE:** If you skip this question and decide you want/need to add this later, you will need to update the following files with "repo name" values:
+  **NOTE:** If you skip this question and decide you want/need to add this later, you will need to update the following files with "repo-name" values:
   
   **package.json**
   
