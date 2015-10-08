@@ -122,7 +122,7 @@ If you were going to import the [h1 atoms/text pattern](https://github.com/patte
 
 ## How to add your Github repo information to your project
      
-     See **Generator Setup Steps** #2 above
+See ***[Generator Setup Steps](#generator-setup-steps)** Step 2 above
   
 
 ## How to import a new pattern library from a GitHub repo into your pattern library
