@@ -18,7 +18,7 @@ module.exports = yeoman.generators.Base.extend({
       var prompts = [{
         type: 'input',
         name: 'libraryname',
-        message: 'What is the name of this Project?',
+        message: 'Pattern Library Project Name?',
         default : this.appname
       }];
 
@@ -37,8 +37,8 @@ module.exports = yeoman.generators.Base.extend({
       var prompts = [{
         type: 'input',
         name: 'reponame',
-        message: 'What is the name of the GitHub repository?',
-        default : this.props.librarynameCamel+'-pattern-library'
+        message: 'If this pattern library has been added to Github, please provide the repo name:',
+        default : 'repo-name'
       }];
 
       this.prompt(prompts, function (repoprops) {
