@@ -9,6 +9,8 @@ patternlab:
 globalAssets: './global-assets'
 # location of our local patterns
 localPatternsDir: './patterns'
+# default template type
+templateEngine: twig
 # the github repository for this pattern library
 githubrepo: <%= reponame %>
 # array of pattern libraries imported via npm
@@ -91,6 +93,7 @@ gulpTasks:
         stylesDest: '{{ fileTypes.sass.prototyperSrcDir }}/local' # where the sass/css will go when imported
         scriptsDest: '{{ fileTypes.js.prototyperSrcDir }}/local' # where the javascript will go when imported
         convertCategoryTitles: false # convert category titles - converts 'atoms' to '00-atoms' for pattern lab
+        templateEngine: '{{ templateEngine }}' # change to your default template engine
       taskName: 'patterns-import-local' # the task's name
       src:
         - './patterns/**/pattern.yml' # patterns to be imported by this task
